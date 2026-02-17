@@ -1,0 +1,315 @@
+﻿ <!--Первое что делаю - админка, а в некст файлах просто ctrl c + ctrl v :D-->
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Административная панель BestGames для добавления новой игры в каталог.">
+  <!--Просто короче тайтл обычный, для админа сделан нейминг-->
+  <title>Административная панель - BestGames</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23FF6B35'/><text y='24' x='0' font-size='22' font-weight='bold' fill='white' font-family='Arial'>BG</text></svg>">
+  <link rel="preconnect" href="media\fonts\Montserrat\Montserrat-Italic-VariableFont_wght.ttf">
+  <link rel="preconnect" href="media\fonts\Montserrat\Roboto-Italic-VariableFont_wdth,wght.ttf" crossorigin>
+  <!--css подрубаем-->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+
+<!-- Шапочка для админрчки -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo" aria-label="BestGames - На главную">
+        <svg class="header__logo-svg" viewBox="0 0 200 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="ad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF6B35"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+        </defs>
+        <!-- Не судите строго, иконка просто нарисована обычным стилем, кругами ))), я не слаб в таком -->
+          <g class="logo__icon">
+            <rect x="3" y="12" width="38" height="22" rx="11" fill="url(#ad1)"/>
+            <rect x="9" y="21" width="10" height="3.5" rx="1.5" fill="white" opacity=".9"/>
+            <rect x="12.75" y="17.25" width="3.5" height="10" rx="1.5" fill="white" opacity=".9"/>
+            <circle cx="34" cy="20" r="2.2" fill="white" opacity=".75"/>
+            <circle cx="38" cy="23" r="2.2" fill="white" opacity=".75"/>
+            <circle cx="34" cy="26" r="2.2" fill="white" opacity=".75"/>
+            <circle cx="30" cy="23" r="2.2" fill="white" opacity=".75"/>
+        </g>
+          <text x="50" y="30" font-family="Rajdhani,sans-serif" font-weight="700" font-size="22" fill="white" letter-spacing="1">BEST</text>
+          <text x="97" y="30" font-family="Rajdhani,sans-serif" font-weight="700" font-size="22" fill="url(#ad1)" letter-spacing="1">GAMES</text>
+        </svg>
+      </a>
+<!-- Потом настроить хрефы -->
+<nav class="nav" aria-label="Основное меню">
+    <ul class="nav__list">
+
+      <li class="nav__item">
+        <a href="#search" class="nav__link nav__link--active">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Поиск
+        </a>
+      </li>
+      <li class="nav__item">
+        <a href="catalog.html" class="nav__link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Каталог игр
+        </a>
+      </li>
+      <li class="nav__item">
+        <a href="profile.html" class="nav__link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Личный кабинет
+        </a>
+      </li>
+    </ul>
+    <div class="nav__actions">
+      <a href="login.html" class="btn btn--primary btn--sm nav__btn">Войти</a>
+      <a href="register.html" class="btn btn--primary btn--sm nav__btn">Регистрация</a>
+    </div>
+  </nav>
+
+      <button type="button" class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav-mobile" id="mobileNav" aria-label="Мобильное меню">
+    <ul class="nav-mobile__list">
+      <li><a href="#search" class="nav-mobile__link">
+        <svg class="nav-mobile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Поиск
+      </a></li>
+      <li><a href="catalog.html" class="nav-mobile__link">
+        <svg class="nav-mobile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Каталог игр
+      </a></li>
+      <li><a href="profile.html" class="nav-mobile__link">
+        <svg class="nav-mobile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Личный кабинет
+      </a></li>
+    </ul>
+    <div class="nav-mobile__divider"></div>
+    <div class="nav-mobile__actions">
+      <a href="login.html"    class="btn btn--primary btn--lg">Войти</a>
+      <a href="register.html" class="btn btn--primary btn--sm nav__btn">Регистрация</a>
+    </div>
+  </nav>
+
+<!-- Сама страничка пошла адм панельки -->
+  <main class="admin-page">
+    <section class="admin-hero" aria-labelledby="adminTitle">
+      <div class="container admin-hero__inner">
+        <!-- <h1 class="admin-hero__title" id="adminTitle">Административная <span>панель</span></h1> -->
+        
+        <h1 class="admin-hero__title" id="adminTitle"><span>Административная панель</span></h1>
+        <span class="admin-badge">ROLE: ADMIN</span>
+
+      </div>
+    </section>
+<!-- По тз у нас:
+нейминг
+жанр
+картинка
+компания разраба
+описание
+стоимость
+кнопка добавить
+-->
+    <div class="admin-layout">
+      <aside class="admin-sidebar" aria-label="Навигация админ-панели">
+        <nav class="admin-nav" aria-labelledby="adminNavTitle">
+          <h2 class="admin-nav__section-title" id="adminNavTitle">Управление</h2>
+          <a href="#addGameCard" class="admin-nav__link admin-nav__link--active">
+            <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить игру
+          </a>
+          <a href="#statsCard" class="admin-nav__link">
+            <svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Статистика
+          </a>
+        </nav>
+      </aside>
+<!-- Ну тут по приколу просто я добавляю -->
+      <section class="admin-main">
+        <div class="admin-stats" id="statsCard">
+          <article class="stat-card">
+            <div class="stat-card__value">228</div>
+            <div class="stat-card__label">Игр в каталоге</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-card__value">333</div>
+            <div class="stat-card__label">Покупок за месяц</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-card__value">+11</div>
+            <div class="stat-card__label">Новых игр</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-card__value">4.8</div>
+            <div class="stat-card__label">Средний рейтинг</div>
+          </article>
+        </div>
+<!-- Карточка с добавлением обычная -->
+        <article class="admin-card" id="addGameCard">
+          <header class="admin-card__header">
+            <h2 class="admin-card__title">Добавление новой игры</h2>
+          </header>
+          <div class="admin-card__body">
+<!-- Форма добавления игры по тз тому самому -->
+            <form class="add-game-form" action="#" method="post" enctype="multipart/form-data" novalidate>
+              <div class="add-game-grid">
+                <div class="form-group">
+                  <label class="form-label" for="gameTitle">Название игры</label>
+                  <input class="form-input" type="text" id="gameTitle" name="title" placeholder="Например: Cyberpunk 2077" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="gameGenre">Жанр</label>
+                  <select class="form-input form-select" id="gameGenre" name="genre" required>
+                    <option value="">Выберите жанр</option>
+                    <option value="action-rpg">Action/RPG</option>
+                    <option value="mmorpg">MMORPG</option>
+                    <option value="shooter">Шутер</option>
+                    <option value="moba">MOBA</option>
+                    <option value="fighting">Файтинг</option>
+                    <option value="strategy">Стратегия</option>
+                  </select>
+                </div>
+
+                <div class="form-group form-group--full">
+                  <label class="form-label" for="gameImage">Изображение</label>
+                  <label class="file-upload">
+                    <input class="file-upload__input" type="file" id="gameImage" name="image" accept="image/*" required>
+                    <span class="file-upload__area">
+                      <svg class="file-upload__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                      <span class="file-upload__text">Перетащите файл или нажмите для загрузки</span>
+                      <span class="file-upload__hint">PNG, JPG, WEBP до 5 МБ</span>
+                    </span>
+                  </label>
+                  <div class="file-upload__preview">
+                    <img class="file-upload__preview-img" src="media\images\admin_preview.jpg" alt="Превью изображения">
+                    <span class="file-upload__preview-name"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="gameDeveloper"><br>Компания-разработчик</label>
+                  <input class="form-input" type="text" id="gameDeveloper" name="developer" placeholder="Например: CD Projekt Red" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="gamePrice">Стоимость</label>
+                  <input class="form-input" type="number" id="gamePrice" name="price" placeholder="Например: 2 999 ₽" min="0" step="1" required>
+                </div>
+
+                <div class="form-group form-group--full">
+                  <label class="form-label" for="gameDescription">Описание</label>
+                  <textarea class="form-input form-textarea" id="gameDescription" name="description" placeholder="Краткое описание игры..." required></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn--primary add-game-form__submit">Добавить</button>
+            </form>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo" aria-label="BestGames">
+            <svg class="footer__logo-svg" viewBox="0 0 200 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="ad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FF6B35"/>
+                    <stop offset="100%" stop-color="#06b6d4"/>
+                </linearGradient>
+                <!--- вектор? Вектор)))-->
+            </defs>
+              <g>
+                <rect x="3" y="12" width="38" height="22" rx="11" fill="url(#ad2)"/>
+                <rect x="9" y="21" width="10" height="3.5" rx="1.5" fill="white" opacity=".9"/>
+                <rect x="12.75" y="17.25" width="3.5" height="10" rx="1.5" fill="white" opacity=".9"/>
+                <circle cx="34" cy="20" r="2.2" fill="white" opacity=".75"/>
+                <circle cx="38" cy="23" r="2.2" fill="white" opacity=".75"/>
+                <circle cx="34" cy="26" r="2.2" fill="white" opacity=".75"/>
+                <circle cx="30" cy="23" r="2.2" fill="white" opacity=".75"/>
+            </g>
+              <text x="50" y="30" font-family="Rajdhani,sans-serif" font-weight="700" font-size="22" fill="white" letter-spacing="1">BEST</text>
+              <text x="97" y="30" font-family="Rajdhani,sans-serif" font-weight="700" font-size="22" fill="url(#ad2)" letter-spacing="1">GAMES</text>
+            </svg>
+          </a>
+          <!--Просто по факту переписано с ТЗ, с листочка-->
+          <p class="footer__tagline">"BestGames" - это маркетплейс для поиска и покупки компьютерных игр и внутриигровых предметов. Сервис объединяет: <br>
+                                                                                                                                    - разработчики компьютерных игр <br>
+                                                                                                                                    - авторские сообщества <br>
+                                                                                                                                    - геймеры <br>
+                                                                                                                                    - инвесторы <br>
+                                                                                                                                    - рекламные компании <br>
+                                                                                                                                    Целевая аудитория: <br>
+                                                                                                                                    - молодые люди в возрасте 18-35 лет <br>
+                                                                                                                                    - компании, принимающие участие в кибер-турнирах </p>
+          <address class="footer__contact">
+            <a href="tel:88009995599" class="footer__contact-item">8&#8209;800&#8209;999&#8209;55&#8209;99</a>
+            <a href="mailto:best@games.ru" class="footer__contact-item">best@games.ru</a>
+          </address>
+        </div>
+
+        <nav class="footer__col" aria-label="Клиентам">
+          <h2 class="footer__col-title">Клиентам</h2>
+          <ul class="footer__nav">
+            <li><a href="#" class="footer__nav-link">Как купить</a></li>
+            <li><a href="#" class="footer__nav-link">Поддержка</a></li>
+            <li><a href="#" class="footer__nav-link">О нас</a></li>
+            <li><a href="#" class="footer__nav-link">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__col" aria-label="Партнёрам">
+          <h2 class="footer__col-title">Партнёрам</h2>
+          <ul class="footer__nav">
+            <li><a href="#" class="footer__nav-link">Партнёрская программа</a></li>
+            <li><a href="#" class="footer__nav-link">Реклама</a></li>
+            <li><a href="#" class="footer__nav-link">О компании</a></li>
+            <li><a href="#" class="footer__nav-link">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__col" aria-label="Навигация по сайту">
+          <h2 class="footer__col-title">Навигация</h2>
+          <ul class="footer__nav">
+            <li><a href="index.html" class="footer__nav-link">Главная</a></li>
+            <li><a href="register.html" class="footer__nav-link">Регистрация</a></li>
+            <li><a href="login.html" class="footer__nav-link">Авторизация</a></li>
+            <li><a href="profile.html" class="footer__nav-link">Личный кабинет</a></li>
+            <li><a href="index.html#search" class="footer__nav-link">Поиск</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 <span>BestGames</span>. Все права защищены.</p>
+        <div class="footer__bottom-links">
+          <a href="police.html" class="footer__bottom-link">Политика конфиденциальности</a>
+          <a href="police.html" class="footer__bottom-link">Пользовательское соглашение</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
