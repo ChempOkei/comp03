@@ -1,0 +1,180 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>School Platform</title>
+    <link rel="stylesheet" href="{% static 'site.css' %}">
+</head>
+<body>
+<main class="main">
+    <div class="container">
+        <div class="card">
+            <h1>School Platform</h1>
+            <p>Сервер работает. Для покупки используйте шаги ниже.</p>
+            <div class="actions">
+                <a class="button primary" href="/course-admin/login/">Админ-панель</a>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+            <h2>Мини-тест API и покупки :D, да, темплейты не подключил, читать в в 123.md</h2>
+            <p>По ТЗ <code>/school-api/courses</code> работает только с Bearer-токеном.</p>
+
+            <div class="input-group">
+                <label for="api_email">Email студента</label>
+                <input id="api_email" type="email" value="student@example.com" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label for="api_password">Пароль студента</label>
+                <input id="api_password" type="password" value="Abc1_">
+            </div>
+            <div class="input-group">
+                <label for="api_course_id">ID курса для покупки</label>
+                <input id="api_course_id" type="number" min="1" placeholder="Нажмите 'Загрузить /courses'">
+            </div>
+
+            <div class="actions">
+                <button id="api_register_btn" class="neutral" type="button">Регистрация</button>
+                <button id="api_auth_btn" class="primary" type="button">Авторизация</button>
+                <button id="api_courses_btn" class="neutral" type="button">Загрузить /courses</button>
+                <button id="api_buy_btn" class="neutral" type="button">Купить курс</button>
+            </div>
+
+            <div id="api_status" class="flash" style="display:none;"></div>
+            <input id="api_token" type="text" readonly placeholder="Токен появится здесь после авторизации">
+            <div id="api_pay_url" class="api-pay-url" style="display:none;">
+                <a id="api_pay_link" href="#" target="_blank" rel="noreferrer">Перейти к оплате</a>
+            </div>
+
+            <p class="api-hint">
+                Тестовые карты: успешная <b>8888 0000 0000 1111</b>, неуспешная <b>8888 0000 0000 2222</b>.
+            </p>
+            <pre id="api_result" class="api-result"></pre>
+        </div>
+    </div>
+</main>
+
+<script>
+let apiToken = '';
+
+const statusNode = document.getElementById('api_status');
+const resultNode = document.getElementById('api_result');
+const tokenNode = document.getElementById('api_token');
+const emailNode = document.getElementById('api_email');
+const passwordNode = document.getElementById('api_password');
+const courseIdNode = document.getElementById('api_course_id');
+const payUrlNode = document.getElementById('api_pay_url');
+const payLinkNode = document.getElementById('api_pay_link');
+
+const showStatus = (text, ok) => {
+    statusNode.textContent = text;
+    statusNode.style.display = 'block';
+    statusNode.className = ok ? 'flash success' : 'flash error';
+};
+
+const showResult = (data) => {
+    resultNode.textContent = JSON.stringify(data, null, 2);
+};
+
+const showPayUrl = (url) => {
+    payLinkNode.href = url;
+    payLinkNode.textContent = url;
+    payUrlNode.style.display = 'block';
+};
+
+const hidePayUrl = () => {
+    payUrlNode.style.display = 'none';
+    payLinkNode.href = '#';
+    payLinkNode.textContent = 'Перейти к оплате';
+};
+
+const payload = () => ({
+    email: emailNode.value.trim(),
+    password: passwordNode.value
+});
+
+const postJson = async (url, body, token = '') => {
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
+    const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body)
+    });
+    let jsonData = {};
+    try {
+        jsonData = await response.json();
+    } catch (error) {
+        jsonData = {};
+    }
+    return { response, jsonData };
+};
+
+document.getElementById('api_register_btn').addEventListener('click', async () => {
+    hidePayUrl();
+    const { response, jsonData } = await postJson('/school-api/registr', payload());
+    showResult(jsonData);
+    showStatus(response.status === 201 ? 'Регистрация выполнена' : 'Ошибка регистрации', response.status === 201);
+});
+
+document.getElementById('api_auth_btn').addEventListener('click', async () => {
+    hidePayUrl();
+    const { response, jsonData } = await postJson('/school-api/auth', payload());
+    showResult(jsonData);
+    if (response.status === 200 && jsonData.token) {
+        apiToken = jsonData.token;
+        tokenNode.value = apiToken;
+        showStatus('Авторизация выполнена', true);
+        return;
+    }
+    showStatus('Ошибка авторизации', false);
+});
+
+document.getElementById('api_courses_btn').addEventListener('click', async () => {
+    hidePayUrl();
+    if (!apiToken) {
+        showStatus('Сначала выполните авторизацию', false);
+        return;
+    }
+    const response = await fetch('/school-api/courses', {
+        headers: { Authorization: `Bearer ${apiToken}` }
+    });
+    const data = await response.json();
+    showResult(data);
+    if (response.status === 200) {
+        if (Array.isArray(data.data) && data.data.length > 0) {
+            courseIdNode.value = data.data[0].id;
+        }
+        showStatus('Курсы загружены', true);
+        return;
+    }
+    showStatus('Ошибка получения курсов', false);
+});
+
+document.getElementById('api_buy_btn').addEventListener('click', async () => {
+    hidePayUrl();
+    if (!apiToken) {
+        showStatus('Сначала выполните авторизацию', false);
+        return;
+    }
+    const courseId = courseIdNode.value.trim();
+    if (!courseId) {
+        showStatus('Укажите ID курса', false);
+        return;
+    }
+    const { response, jsonData } = await postJson(`/school-api/courses/${courseId}/buy`, {}, apiToken);
+    showResult(jsonData);
+    if (response.status === 200 && jsonData.pay_url) {
+        showStatus('Ссылка на оплату получена', true);
+        showPayUrl(jsonData.pay_url);
+        return;
+    }
+    showStatus('Ошибка покупки курса', false);
+});
+</script>
+</body>
+</html>

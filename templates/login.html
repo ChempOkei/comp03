@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course Admin · Вход</title>
+  <style>
+    :root{--bg:#f3f4f6;--card:#ffffff;--border:#e5e7eb;--text:#111827;--muted:#6b7280;--accent:#2563eb;--danger:#b91c1c}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}
+    .wrap{max-width:440px;width:100%;padding:24px 14px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 30px rgba(15,23,42,.06)}
+    .head{padding:22px 22px 0}
+    .muted{color:var(--muted)}
+    h1{margin:6px 0 0;font-size:22px}
+    .body{padding:22px}
+    .form{display:grid;gap:12px}
+    label{display:block;font-weight:600;margin-bottom:6px}
+    input{width:100%;border-radius:12px;border:1px solid #d1d5db;padding:10px 12px;background:#f9fafb;color:var(--text);outline:none}
+    input:focus{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+    .help{font-size:12px;color:var(--muted);margin-top:6px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:9px 12px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+    .errbox{border:1px solid rgba(239,68,68,.45);background:#fef2f2;border-radius:14px;padding:12px;margin-bottom:12px}
+    .err{font-size:12px;color:#b91c1c;margin-top:6px}
+    .invalid input{border-color:#b91c1c;box-shadow:0 0 0 1px #fecaca}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="head">
+        <div class="muted" style="font-size:12px;">Доступ только для администратора</div>
+        <h1>Вход</h1>
+      </div>
+      <div class="body">
+        <div class="errbox" style="display:none" id="formErrorBox">
+          <div style="font-weight:700;">Ошибка</div>
+          <div class="muted">Неверный email или пароль</div>
+        </div>
+        <form class="form" action="#" method="post" novalidate>
+          <div class="" id="emailField">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="admin@edu.com" required>
+            <div class="err" style="display:none" id="emailError">Поле email обязательно</div>
+          </div>
+          <div class="" id="passwordField">
+            <label for="password">Пароль</label>
+            <input id="password" name="password" type="password" placeholder="••••••••" required>
+            <div class="err" style="display:none" id="passwordError">Поле пароль обязательно</div>
+          </div>
+          <button class="btn" type="submit">Войти</button>
+          <div class="help">Данные по заданию: admin@edu.com / course2025</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

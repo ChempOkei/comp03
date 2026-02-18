@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сертификат</title>
+  <style>
+    @page{size:A4 landscape;margin:12mm}
+    body{margin:0;font-family:Georgia,"Times New Roman",Times,serif;background:#e5e7eb}
+    .sheet{width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+    .paper{width:297mm;min-height:210mm;background:#ffffff;border:1px solid #d1d5db;box-shadow:0 20px 80px rgba(15,23,42,.18);position:relative;overflow:hidden}
+    .frame{position:absolute;inset:12mm;border:2px solid #111827;border-radius:8mm}
+    .content{position:relative;padding:28mm 30mm 22mm;display:flex;flex-direction:column;gap:10mm}
+    .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10mm}
+    .brand{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;color:#111827}
+    .brand b{font-size:18px}
+    .brand small{display:block;color:#6b7280;margin-top:2px}
+    .number{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;color:#111827;text-align:right}
+    .number div:first-child{font-size:12px;color:#6b7280}
+    .number div:last-child{font-size:18px;font-weight:700;letter-spacing:.08em}
+    h1{margin:0;color:#111827;font-size:44px;letter-spacing:.04em;text-transform:uppercase}
+    .subtitle{color:#374151;font-size:16px}
+    .name{font-size:34px;font-weight:700;color:#111827;margin-top:2mm}
+    .course{font-size:18px;color:#111827}
+    .meta{display:flex;justify-content:space-between;align-items:flex-end;margin-top:auto;gap:10mm}
+    .meta .block{color:#111827}
+    .meta .label{font-size:12px;color:#6b7280;margin-bottom:2mm}
+    .sign{display:flex;gap:12mm;align-items:flex-end}
+    .line{width:70mm;border-bottom:1px solid #111827;height:0}
+    .stamp{width:40mm;height:40mm;border:2px dashed #9ca3af;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#6b7280;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;font-size:12px}
+    .printbar{position:fixed;left:12px;top:12px;display:flex;gap:10px}
+    .btn{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;border:1px solid #111827;background:#111827;color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer}
+    .btn.secondary{background:#ffffff;color:#111827}
+    @media print{body{background:#ffffff}.sheet{padding:0}.paper{box-shadow:none;border:none}.printbar{display:none}}
+  </style>
+</head>
+<body>
+  <div class="printbar">
+    <button class="btn" type="button" onclick="window.print()">Печать</button>
+    <a class="btn secondary" href="students.html" style="text-decoration:none;display:inline-flex;align-items:center">Назад</a>
+  </div>
+  <div class="sheet">
+    <div class="paper" role="document" aria-label="Сертификат">
+      <div class="frame" aria-hidden="true"></div>
+      <div class="content">
+        <div class="top">
+          <div class="brand">
+            <b>EDU PLATFORM</b>
+            <small>сертификат об окончании курса</small>
+          </div>
+          <div class="number">
+            <div>Номер сертификата</div>
+            <div data-field="certificate_number">XXXXXX000001</div>
+          </div>
+        </div>
+        <div>
+          <h1>Сертификат</h1>
+          <div class="subtitle">Настоящим подтверждается, что</div>
+          <div class="name" data-field="student_name">Анна Смирнова</div>
+          <div class="course">успешно завершил(а) курс <b data-field="course_name">Python старт</b></div>
+        </div>
+        <div class="meta">
+          <div class="block">
+            <div class="label">Даты прохождения</div>
+            <div><span data-field="start_date">01-02-2026</span> — <span data-field="end_date">20-02-2026</span></div>
+          </div>
+          <div class="sign">
+            <div>
+              <div class="label">Подпись</div>
+              <div class="line"></div>
+              <div class="label">Администратор</div>
+            </div>
+            <div class="stamp">ПЕЧАТЬ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

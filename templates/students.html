@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course Admin · Студенты</title>
+  <style>
+    :root{--bg:#f3f4f6;--aside:#ffffff;--card:#ffffff;--border:#e5e7eb;--text:#111827;--muted:#6b7280;--accent:#2563eb;--danger:#b91c1c}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;background:var(--bg);color:var(--text);min-height:100vh}
+    .shell{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+    .aside{background:var(--aside);border-right:1px solid var(--border);padding:22px 18px;position:sticky;top:0;height:100vh}
+    .muted{color:var(--muted)}
+    .nav{display:grid;gap:8px}
+    .nav a{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--text);border:1px solid transparent}
+    .nav a.active{background:#dbeafe;border-color:#93c5fd}
+    .main{padding:26px 26px 60px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+    h1{margin:0;font-size:22px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:9px 12px;border:1px solid #d1d5db;text-decoration:none;background:#ffffff;color:var(--text);cursor:pointer}
+    .btn.primary{border-color:#2563eb;background:#2563eb;color:#ffffff}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 12px 35px rgba(15,23,42,.06)}
+    .cardbody{padding:16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 12px;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+    th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em;text-align:left}
+    .badge{display:inline-flex;padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border);color:var(--text)}
+    .pending{border-color:#f59e0b;color:#92400e;background:#fffbeb}
+    .success{border-color:#16a34a;color:#166534;background:#ecfdf3}
+    .failed{border-color:#dc2626;color:#991b1b;background:#fef2f2}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{display:block;font-weight:600;margin-bottom:6px}
+    select,input{width:100%;border-radius:12px;border:1px solid #d1d5db;padding:10px 12px;background:#f9fafb;color:var(--text);outline:none}
+    select:focus,input:focus{border-color:#2563eb;box-shadow:0 0 0 1px #2563eb}
+    .help{font-size:12px;color:var(--muted);margin-top:6px}
+    @media (max-width:980px){.shell{grid-template-columns:1fr}.aside{position:relative;height:auto;margin-bottom:12px}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="aside">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+        <div style="width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#3b82f6,#1d4ed8);box-shadow:0 10px 25px rgba(37,99,235,.35)"></div>
+        <div>
+          <div style="font-weight:700;">Course Admin</div>
+          <div class="muted" style="font-size:12px;">панель администратора</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Навигация">
+        <a href="courses-list.html"><span>Курсы</span><span class="muted" style="font-size:12px;">CRUD</span></a>
+        <a class="active" href="students.html"><span>Студенты</span><span class="muted" style="font-size:12px;">записи</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <div class="top">
+        <div>
+          <div class="muted" style="font-size:12px;">Записанные студенты</div>
+          <h1>Студенты и записи</h1>
+        </div>
+        <div class="actions">
+          <a class="btn" href="login.html">Выйти</a>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="cardbody">
+          <form action="#" method="get">
+            <div class="grid">
+              <div>
+                <label for="course_id">Фильтр по курсу</label>
+                <select id="course_id" name="course_id">
+                  <option value="">Все курсы</option>
+                  <option value="1">Python старт</option>
+                  <option value="2">Web Backend</option>
+                </select>
+                <div class="help">Показывает только студентов выбранного курса</div>
+              </div>
+              <div>
+                <label for="q">Поиск</label>
+                <input id="q" name="q" type="text" placeholder="email или имя">
+                <div class="help">Опционально</div>
+              </div>
+            </div>
+            <div class="actions" style="margin-top:12px">
+              <button class="btn primary" type="submit">Применить</button>
+              <a class="btn" href="students.html">Сбросить</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card">
+        <div class="cardbody">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Имя</th>
+                <th>Курс</th>
+                <th>Дата записи</th>
+                <th>Оплата</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>student1@example.com</td>
+                <td>Иван Иванов</td>
+                <td>Python старт</td>
+                <td>02-02-2026</td>
+                <td><span class="badge pending">ожидает оплаты</span></td>
+                <td class="actions">
+                  <a class="btn" href="#" style="pointer-events:none;opacity:.45">Печать сертификата</a>
+                </td>
+              </tr>
+              <tr>
+                <td>student2@example.com</td>
+                <td>Анна Смирнова</td>
+                <td>Python старт</td>
+                <td>03-02-2026</td>
+                <td><span class="badge success">оплачено</span></td>
+                <td class="actions">
+                  <a class="btn primary" href="certificate-print.html" target="_blank" rel="noopener">Печать сертификата</a>
+                </td>
+              </tr>
+              <tr>
+                <td>student3@example.com</td>
+                <td>Пётр Петров</td>
+                <td>Web Backend</td>
+                <td>11-03-2026</td>
+                <td><span class="badge failed">ошибка оплаты</span></td>
+                <td class="actions">
+                  <a class="btn" href="#" style="pointer-events:none;opacity:.45">Печать сертификата</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
+
